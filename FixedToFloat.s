@@ -5,30 +5,30 @@ _start:
 	movia r17, r         #get output's address, storage in r17
 	mov   r18, r0        #r18=0, loop var, to access values in n, r
 	movi  r19, 3         #r19=3, loop destination, to access values in n, r
-AA:	#loop to access and convert values
-	movi  r3, 1	     #r3=1
+AA:						 #loop to access and convert values
+	movi  r3, 1	     	 #r3=1
 	slli  r3, r3, 31     #shift left 31bits r3=2^31, to find first bit 1
 	movi  r6, 32         #r6=32, loop variable, to find first bit 1
 	movi  r9, 16         #r9=16, to calculate exponent
 	movi  r14, 32        #r14=32, const
 #Get each array element
-        ldw   r15, (r16)     #get each value in n, const
+    ldw   r15, (r16)     #get each value in n, const
 	mov   r4, r15        #r15=r4
 #Get S
-        and   r2, r15, r3    #r2=r15&r3, check 31st bit
+    and   r2, r15, r3    #r2=r15&r3, check 31st bit
 	beq   r2, r0, PN     #if r2=0, 31st bit=0, jump PN
 	sub   r4, r0, r4     #r4=(-) -> (+), when r2=1, 31st bit=1
 PN:
 	mov   r5, r2         #r5<-s, r5: result
 #Get place to put comma     
-L:  #Find the first bit 1
-        beq   r6, r0, EL     #r6=r0 -> EL, loop var=0
+L:  					 #Find the first bit 1
+    beq   r6, r0, EL     #r6=r0 -> EL, loop var=0
 	subi  r6, r6, 1      #r6=r6-1
 	and   r8, r4, r3     #r8=r4&r3
-        beq   r8, r3, EL     #r8=r3 -> EL, detect bit 1
+    beq   r8, r3, EL     #r8=r3 -> EL, detect bit 1
 	srli  r3, r3, 1      #shift right r3 1 bit
 	br    L              #jump L
-EL: #End find, r6: place to put comma, not direction
+EL: 					 #End find, r6: place to put comma, not direction
 	sub   r10, r6, r9    #r10=r6-r9=x-127(exponent, x not r6, 127 not r9)
 	sub   r11, r14, r6   #r11: place to put, from left(31st bit)
 #Get fraction
@@ -43,7 +43,7 @@ EL: #End find, r6: place to put comma, not direction
 #Storage result
 	stw   r5, (r16)      #storage result in r16
 #Get each array element
-        addi  r16, r16, 4    #r16=r16+4, get next value's address (n)
+    addi  r16, r16, 4    #r16=r16+4, get next value's address (n)
 	addi  r17, r17, 4    #r17=r17+4, get next result's address (r)
 	beq   r18, r19, stop #if r18=r19, jump stop, converted all values
 	addi  r18, r18, 1    #r18=r18+1
@@ -55,4 +55,5 @@ stop:
 	r: .word 0,0,0,0     #output r=0,0,0,0 (result)
 .end
 	
+
 	
