@@ -3,12 +3,10 @@
 
 
 * **`FixedToFloat_Single.s`**: 
-  * Phiên bản đơn giản.
   * Chỉ chuyển đổi **1 số duy nhất** (khai báo cứng trong code).
   * Mục đích: Để test và hiểu thuật toán tách bit, tính số mũ.
 
 * **`FixedToFloat_Array.s`**: 
-  * Phiên bản nâng cấp.
   * Chuyển đổi **một mảng (array)** gồm nhiều số liên tiếp.
   * Sử dụng vòng lặp và con trỏ bộ nhớ để duyệt qua từng phần tử và ghi kết quả lại vào mảng đích.
 
